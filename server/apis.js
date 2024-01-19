@@ -5,7 +5,11 @@ const express = require("express");
 
 const router = express.Router();
 
-const db = require("./db");       // Import the db module 
+const jwt = require('jsonwebtoken');
+
+const db = require("./db");       // Import the db module
+
+const verifyAccessToken = require('./jwt');
 
 router.get('/login', (req, res) => {
     res.sendFile('/html/login.html', { root: __dirname + './../' }); // Gets login.html from html folder
@@ -54,9 +58,26 @@ router.post('/userlogin', async (req, res) => {
 
     if (!results?.[0]) return res.json({ "success": false, "message": "Invalid username or password" });
 
-    return res.json({ "success": true, "message": "Logged in", "data": results });
+    const user = {
+        "staff_id": results?.[0].staff_id
+    };
+
+    jwt.sign(user, 'secret', { expiresIn: "4h" }, (err, token) => {
+
+        if (err) return res.json({ "success": false, "message": "Unable to generate token." });
+
+        return res.json({
+            success: true,
+            token: token,
+            "data": results,
+            "message": "Logged in"
+        });
+    });
 
 });
+
+//verify jwt token before running API
+router.use(verifyAccessToken);
 
 
 // add staff (run asyn so that the program waits)
@@ -140,6 +161,7 @@ router.patch('/staff', async (req, res) => {
 
 // Get all staff
 router.get('/allstaff', async (req, res) => {
+    // console.log("t", req.headers.cookie);
     const result = await new Promise((resolve, reject) => {
         db.query("SELECT staff_id, staff_name, staff_role, staff_username,staff_mobile,staff_email, staff_status, DATE_FORMAT(staff_crtdon, '%d-%m-%y') AS created_on FROM staff WHERE staff_role !=0 ",
             [],

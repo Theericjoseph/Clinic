@@ -46,9 +46,13 @@ function fetchAllStaffData() {
                 alert("Error");
                 console.log(error)
             })
+        } else {
+            alert(response?.status + ': ' + response?.statusText);
+
+            (response?.status == 403) && logout();
         }
     }).catch(error => {
-        alert("Error");
+        alert(error);
         console.log(error)
     })
 }

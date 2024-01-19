@@ -14,10 +14,11 @@ app.use(express.urlencoded({ extended: true }));
 
 const server = require('./server/apis'); // Import the apis module
 
+
 app.use(express.static('html'));         // To use all the html files
 app.use(express.static('css'));         // To use all the html files
 app.use(express.static('js'));         // To use all the html files
-app.use(express.static('scss'));
+
 
 // Use the routes defined in the apis module 
 app.use('/', server);

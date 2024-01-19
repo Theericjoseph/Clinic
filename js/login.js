@@ -23,7 +23,9 @@ function formAction(form, ev) {
 
                     alert(res.message); // Creates an alert box
 
-                    if (res.data[0].staff_role == 0) window.location.href = '/staff-list';
+                    document.cookie = "token=" + res.token; // Adds token to cookie
+
+                    if (res.data[0].staff_role == 0) window.location.href = '/staff-list'; // If staff redirect to /staff-list
                     else { window.location.href = '/visits' }
                 }
                 else {
