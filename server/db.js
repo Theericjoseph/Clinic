@@ -21,55 +21,65 @@ let tableSQL = `CREATE DATABASE IF NOT EXISTS clinic;
 
 
 CREATE TABLE IF NOT EXISTS doctors (
-    doctor_id int(11) NOT NULL AUTO_INCREMENT,
-    doctor_staff_id int(11) NOT NULL DEFAULT 0,
+    doctor_id int NOT NULL AUTO_INCREMENT,
+    doctor_staff_id int NOT NULL DEFAULT '0',
     doctor_name varchar(50) DEFAULT NULL,
     doctor_imano varchar(50) DEFAULT NULL,
-    doctor_status int(11) DEFAULT 1,
+    doctor_status int DEFAULT '1',
     doctor_schedule varchar(50) DEFAULT NULL COMMENT 'sun-1,mon-2.....',
-    doctor_crtdon timestamp NULL DEFAULT NULL,
-    PRIMARY KEY (doctor_id)
+    doctor_crtdon timestamp NULL DEFAULT (now()),
+    PRIMARY KEY (doctor_id),
+    UNIQUE KEY doctor_staff_id (doctor_staff_id),
+    CONSTRAINT FK_doctors_staff FOREIGN KEY (doctor_staff_id) REFERENCES staff (staff_id) ON DELETE CASCADE ON UPDATE CASCADE
   );
 
   CREATE TABLE IF NOT EXISTS patient_details (
-    patient_id int(11) NOT NULL AUTO_INCREMENT,
+    patient_id int NOT NULL AUTO_INCREMENT,
     patient_name varchar(50) DEFAULT NULL,
     patient_uniqueid varchar(50) DEFAULT NULL,
     patient_age varchar(50) DEFAULT NULL,
-    patient_gender int(11) DEFAULT NULL,
-    patient_address text DEFAULT NULL,
+    patient_gender int DEFAULT NULL,
+    patient_address text,
     patient_mobile varchar(50) DEFAULT NULL,
     patient_email varchar(50) DEFAULT NULL,
-    patient_status int(11) DEFAULT 1,
-    patient_crtby int(11) DEFAULT NULL,
-    patient_crtdon timestamp NULL DEFAULT current_timestamp(),
+    patient_status int DEFAULT '1',
+    patient_crtby int DEFAULT NULL,
+    patient_crtdon timestamp NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (patient_id),
     UNIQUE KEY patient_uniqueid (patient_uniqueid)
   );
 
   CREATE TABLE IF NOT EXISTS patient_visit (
-    visit_id int(11) NOT NULL AUTO_INCREMENT,
-    visit_patient int(11) DEFAULT NULL,
-    visit_doctor int(11) DEFAULT NULL,
-    visit_prescription text DEFAULT NULL,
-    visit_crtdby int(11) DEFAULT NULL,
-    visit_crton timestamp NULL DEFAULT current_timestamp(),
-    PRIMARY KEY (visit_id)
+    visit_id int NOT NULL AUTO_INCREMENT,
+    visit_patient int DEFAULT NULL,
+    visit_doctor int DEFAULT NULL,
+    visit_condition varchar(200) DEFAULT NULL COMMENT 'Patients Condition',
+    visit_prescription text,
+    visit_crtdby int DEFAULT NULL,
+    visit_crton timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+    visit_status int DEFAULT '1' COMMENT '1-new visit, 5-seen ',
+    PRIMARY KEY (visit_id),
+    KEY FK_patient_visit_patient_details (visit_patient),
+    KEY FK_patient_visit_doctors (visit_doctor),
+    CONSTRAINT FK_patient_visit_doctors FOREIGN KEY (visit_doctor) REFERENCES doctors (doctor_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT FK_patient_visit_patient_details FOREIGN KEY (visit_patient) REFERENCES patient_details (patient_id) ON DELETE CASCADE ON UPDATE CASCADE
   );
 
   CREATE TABLE IF NOT EXISTS staff (
-    staff_id int(11) NOT NULL AUTO_INCREMENT,
+    staff_id int NOT NULL AUTO_INCREMENT,
     staff_name varchar(150) DEFAULT NULL,
-    staff_role int(11) DEFAULT NULL COMMENT '1-reception,2-doctor',
+    staff_role int DEFAULT NULL COMMENT '1-reception,2-doctor',
     staff_username varchar(50) DEFAULT NULL,
     staff_password varchar(50) DEFAULT NULL,
     staff_mobile varchar(50) DEFAULT NULL,
     staff_email varchar(50) DEFAULT NULL,
-    staff_status int(11) DEFAULT 1,
+    staff_status int DEFAULT '1',
     staff_crtdon timestamp NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (staff_id)
   ); 
 `;
+
+// Function to create table
 const aSQL = tableSQL.split(";");
 
 async function createTables() {
