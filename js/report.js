@@ -47,15 +47,17 @@ function loadDetails() {
 
                         let condition = "";
                         let presc = "";
-                        (visits[i].visit_condition) && (condition = visits[i].visit_condition);
-                        (visits[i].visit_prescription) && (visits[i].visit_prescription);
+                        (visits[i].visit_condition) && (condition = visits[i].visit_condition); // Visit condition is black if value null in db
+                        (visits[i].visit_prescription) && (visits[i].visit_prescription);       // Visit prescription is black if value null in db
+
+                        // Accordian item 
                         string +=
                             `<div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-heading${count}">
                                     <button class="accordion-button ${coll}" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#panelsStayOpen-collapse${count}" aria-expanded="true"
                                         aria-controls="panelsStayOpen-collapse${count}">
-                                        Visit #${count}
+                                        Visit on ${visits[i].visited_on}
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapse${count}" class="accordion-collapse collapse ${show}"
@@ -77,9 +79,12 @@ function loadDetails() {
                             </div>`
 
                     };
+
+                    // Accordian item added to accordian
                     document.getElementById("visits-accordian").innerHTML += string;
 
                 } else alert(res.message);
+
             }).catch(error => {
                 alert("Error");
                 console.log(error)

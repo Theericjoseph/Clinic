@@ -102,12 +102,12 @@ function searchCustomer() {
                     } else alert(res.message);
                 }).catch(error => {
                     alert("Error");
-                    console.log("Error")
+                    console.log(error)
                 })
             }
         }).catch(error => {
             alert("Error");
-            console.log("Error")
+            console.log(error)
         })
     }
 }

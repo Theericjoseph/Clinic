@@ -12,6 +12,7 @@ body {
 .login-container {
     background-color: #fff;
     padding: 20px;
+    width: 400px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-top: 80px;
@@ -42,16 +43,17 @@ select {
     box-sizing: border-box;
 }
 
-input[type="submit"] {
+button {
     background-color: #4caf50;
     color: white;
     border: none;
     padding: 15px 20px;
     border-radius: 4px;
     cursor: pointer;
+    float: right;
 }
 
-input[type="submit"]:hover {
+button:hover {
     background-color: #45a049;
 }
 

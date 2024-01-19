@@ -4,99 +4,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
+
+    <!-- JS File -->
+    <script type="text/javascript" src="./../login.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+
 </head>
 
-<body>
+<body style="background-color: #4E9CAF;">
 
-    <form id="login" onsubmit=formAction(this,event)>
-        <h1>Login</h1>
-        <div style="display: flex; justify-content:center; align-items:center; flex-direction: column;"
-            class="login-container">
-            <div>
-                <label>Username</label>
-                <input type="text" name="username" id="user">
-                <br><br>
-            </div>
-            <div>
-                <label>Password</label>
-                <input type="password" name="password" id="pass">
-                <br><br>
-            </div>
-            <button type="submit">Login</button>
+    <div class="container-fluid">
+        <div class="row justify-content-center align-items-center vh-100">
+            <form id="login" onsubmit="formAction(this,event)" class="col-md-4 p-4 bg-light rounded">
+                <h1 class="text-center mb-4">Clinic Login</h1>
+                <div class="form-group">
+                    <label for="user">Username</label>
+                    <input type="text" name="username" id="user" class="form-control">
+                </div>
+                <div class="form-group mt-3">
+                    <label for="pass">Password</label>
+                    <input type="password" name="password" id="pass" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Login</button>
+            </form>
         </div>
-    </form>
+    </div>
 
-    <script>
-
-        // To get doctor id from staff id
-        function getDocId(staff_id) {
-            fetch('/docid', {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ "staff_id": staff_id })
-            }).then(response => {
-                if (response.ok) {
-                    response.json().then(res => {
-                        if (res.success) {
-                            sessionStorage.setItem("doctor_id", res.data[0].doctor_id);
-                        }
-                        else {
-                            alert(res.message); // Creates an alert box
-
-                        }
-                    }).catch(error => {
-                        alert("Error");
-                        console.log("Error")
-                    })
-                }
-            }).catch(error => {
-                alert("Error");
-                console.log("Error")
-            })
-        }
-
-        function formAction(form, ev) {
-            ev.preventDefault(); // Prevents the default file submission
-
-            fetch('/userlogin', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 'username': form['username']?.value, 'password': form['password']?.value })
-            }).then(response => {
-                if (response.ok) // if response is ok 
-                {
-                    // response.json converts the body text as a json
-                    // .then method is used to handle to resolved value of the json
-                    response.json().then(res => {
-                        if (res.success) {
-                            sessionStorage.setItem("staff_id", res?.data[0]?.staff_id);
-                            sessionStorage.setItem("staff_name", res?.data[0]?.staff_name);
-                            sessionStorage.setItem("staff_role", res?.data[0]?.staff_role);
-
-                            if (res?.data[0]?.staff_role == 2) { // Doctor id stored into session storage
-                                getDocId(res?.data[0]?.staff_id);
-                            }
-
-                            alert(res.message); // Creates an alert box
-                            window.location.href = '/visits'
-                        }
-                        else {
-                            alert(res.message); // Creates an alert box
-                            windows.location.reload();
-
-                        }
-                    }).catch(error => {
-                        alert("Error");
-                        console.log("Error")
-                    })
-                }
-            }).catch(error => {
-                alert("Error");
-                console.log("Error")
-            })
-        }
-    </script>
 </body>
 
 

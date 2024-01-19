@@ -12,7 +12,7 @@ router.get('/login', (req, res) => {
 });
 
 router.get('/staff', (req, res) => {
-    res.sendFile('/html/staff.html', { root: __dirname + './../' }); // Gets staff.html from html folder
+    res.sendFile('/html/addstaff.html', { root: __dirname + './../' }); // Gets staff.html from html folder
 });
 
 router.get('/staff-list', (req, res) => {
@@ -28,22 +28,13 @@ router.get('/visits', (req, res) => {
 });
 
 router.get('/customer', (req, res) => {
-    res.sendFile('/html/customer.html', { root: __dirname + './../' }); // Gets visits.html from html folder
+    res.sendFile('/html/customer.html', { root: __dirname + './../' }); // Gets customer.html from html folder
 });
 
 router.get('/report', (req, res) => {
-    res.sendFile('/html/report.html', { root: __dirname + './../' }); // Gets visits.html from html folder
+    res.sendFile('/html/report.html', { root: __dirname + './../' }); // Gets report.html from html folder
 });
 
-router.get('/hello', (req, res) => {
-    res.json({ "message": "Hello world!!" });
-});
-
-
-// Eg post
-// router.post('/login-submit', (req, res) => {
-//     res.json({ "success": true, "message": "logged in" })
-// })
 
 // login (run async so that the program waits)
 router.post('/userlogin', async (req, res) => {
@@ -87,13 +78,11 @@ router.post('/staff', async (req, res) => {
     if (!result?.affectedRows) return res.json({ "success": false, "message": "Error while adding staff." });
 
 
-    let staff_id = result?.insertId; // Dont undestand
+    let staff_id = result?.insertId;
     console.log("result", result);
     console.log("insertId", result?.insertId); //prints auto-increment ID of the table
 
-    // check if staff_role is Doctor
-    //add to doctors table if staff_role=2
-
+    // check if staff_role is Doctor and add to doctors table if staff_role=2
     if (staff_role == 2) {
         const result = await new Promise((resolve, reject) => {
             db.query("INSERT INTO doctors (doctor_staff_id, doctor_name, doctor_imano, doctor_schedule) VALUES(?,?,?,?)",
@@ -295,7 +284,7 @@ router.post('/searchpatient', async (req, res) => {
     const { keyword } = req?.body;
 
     const result = await new Promise((resolve, reject) => {
-        db.query("SELECT * FROM patient_details WHERE patient_name LIKE ? OR patient_mobile LIKE ? OR patient_uniqueid LIKE ?",
+        db.query("SELECT patient_id, patient_name, patient_uniqueid, patient_age, patient_gender, patient_address, patient_mobile, patient_email, patient_crtby, patient_status, DATE_FORMAT(patient_crtdon, '%d-%m-%y') AS created_on FROM patient_details WHERE patient_name LIKE ? OR patient_mobile LIKE ? OR patient_uniqueid LIKE ?",
             [`%${keyword}%`, `%${keyword}%`, `%${keyword}%`],
             (error, result, field) => {
                 error ? reject(error) : resolve(result)
@@ -469,7 +458,7 @@ router.get('/pvisits/:patient_id', async (req, res) => {
     const { patient_id } = req?.params;
 
     const result = await new Promise((resolve, reject) => {
-        db.query("SELECT * FROM patient_visit LEFT JOIN patient_details ON patient_details.patient_id = patient_visit.visit_patient WHERE patient_id = ?",
+        db.query("SELECT patient_name, patient_age, patient_gender, patient_mobile, visit_id, visit_condition, visit_prescription, DATE_FORMAT(visit_crton, '%d-%m-%y') AS visited_on FROM patient_visit LEFT JOIN patient_details ON patient_details.patient_id = patient_visit.visit_patient WHERE patient_id = ?",
             [patient_id],
             (error, result, field) => {
                 error ? reject(error) : resolve(result)

@@ -44,12 +44,12 @@ function fetchAllStaffData() {
                 }
             }).catch(error => {
                 alert("Error");
-                console.log("Error")
+                console.log(error)
             })
         }
     }).catch(error => {
         alert("Error");
-        console.log("Error")
+        console.log(error)
     })
 }
 
@@ -103,11 +103,11 @@ fetchStaff = (staff_id, role) => {
         },
         failure: function (response) {
             alert("Failure");
-            console.log("Error")
+            console.log(error)
         },
         error: function (response) {
             alert("Error");
-            console.log("Error")
+            console.log(error)
         }
     });
 }
@@ -149,38 +149,46 @@ function updateStaff(form, ev) {
                 }
             }).catch(error => {
                 alert("Error");
-                console.log("Error")
+                console.log(error)
             })
         }
     }).catch(error => {
         alert("Error");
-        console.log("Error")
+        console.log(error)
     })
 }
 
 // Delete Staff
 function deleteStaff(staff_id) {
-    fetch('/staff', {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ "staff_id": staff_id })
-    }).then(response => {
-        if (response.ok) {
-            response.json().then(res => {
-                if (res.success) {
-                    alert(res.message);
-                    window.location.reload();
-                }
-                else alert(res.message);
-            }).catch(error => {
-                alert("Error");
-                console.log("Error")
-            })
-        }
-    }).catch(error => {
-        alert("Error");
-        console.log("Error")
-    })
+
+    // Show a confirmation dialog
+    const isConfirmed = window.confirm("Are you sure you want to delete this staff?");
+
+    if (isConfirmed) {
+
+
+        fetch('/staff', {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ "staff_id": staff_id })
+        }).then(response => {
+            if (response.ok) {
+                response.json().then(res => {
+                    if (res.success) {
+                        alert(res.message);
+                        window.location.reload();
+                    }
+                    else alert(res.message);
+                }).catch(error => {
+                    alert("Error");
+                    console.log(error)
+                })
+            }
+        }).catch(error => {
+            alert("Error");
+            console.log(error)
+        })
+    }
 }
 
 // Functions

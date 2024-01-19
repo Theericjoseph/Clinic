@@ -49,19 +49,18 @@
         <form class="form-inline">
             <!-- From Date -->
             <label class="control-label">From Date:</label>
-            <input class="fdate form-control col-sm-2 ml-1" id="fr_date" name="date" placeholder="DD/MM/YYY"
-                type="date" />
+            <input class="fdate form-control col-sm-2 ml-1" id="fr_date" name="date" type="date" />
 
             <!-- To Date -->
             <label class="control-label ml-1">To Date:</label>
-            <input class="fdate form-control col-sm-2 ml-1" id="to_date" name="date" placeholder="DD/MM/YYY"
-                type="date" />
+            <input class="fdate form-control col-sm-2 ml-1" id="to_date" name="date" type="date" />
 
             <!-- Search Patients -->
             <i class="fa fa-search" onclick="fetchAllPatients()"></i>
 
             <!-- Search Bar -->
-            <input class="form-control col-sm-2 ml-auto" id="searchbar" type="text" placeholder="Search..">
+            <input class="form-control col-sm-2 ml-auto" id="searchbar" onkeyup="searchPatient()" type="text"
+                placeholder="Search..">
         </form>
 
         <!-- Patient Table -->

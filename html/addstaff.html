@@ -8,6 +8,9 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="./../staff.css">
+
+    <!-- JS File -->
+    <script type="text/javascript" src="./../addstaff.js"></script>
 </head>
 
 <body>
@@ -16,7 +19,7 @@
         <h1>Enter Staff Details</h1>
         <p>Enter data into all the fields.</p>
 
-        <form id="staffForm" action="/staff" method="post">
+        <form id="staffForm" onsubmit="formAction(event)">
             <div>
                 <label for="staff_name">Staff Name</label>
                 <input type="text" name="staff_name" id="staff_name" required>
@@ -59,28 +62,27 @@
                 <label>Doctor Schedule</label><br>
 
 
-                <input type="checkbox" name="doctor_schedule" value="1">
+                <input type="checkbox" name="doctor_schedule" value="0">
                 <label for="doctor_schedule"> Sunday</label><br>
-                <input type="checkbox" name="doctor_schedule" value="2">
+                <input type="checkbox" name="doctor_schedule" value="1">
                 <label for="doctor_schedule"> Monday</label><br>
-                <input type="checkbox" name="doctor_schedule" value="3">
+                <input type="checkbox" name="doctor_schedule" value="2">
                 <label for="doctor_schedule"> Tuesday</label><br>
-                <input type="checkbox" name="doctor_schedule" value="4">
+                <input type="checkbox" name="doctor_schedule" value="3">
                 <label for="doctor_schedule"> Wednesday</label><br>
-                <input type="checkbox" name="doctor_schedule" value="5">
+                <input type="checkbox" name="doctor_schedule" value="4">
                 <label for="doctor_schedule"> Thursday</label><br>
-                <input type="checkbox" name="doctor_schedule" value="6">
+                <input type="checkbox" name="doctor_schedule" value="5">
                 <label for="doctor_schedule"> Friday</label><br>
-                <input type="checkbox" name="doctor_schedule" value="7">
+                <input type="checkbox" name="doctor_schedule" value="6">
                 <label for="doctor_schedule"> Saturday</label><br>
 
                 <br><br>
             </div>
 
-            <input type="submit" value="Submit">
+            <button type="submit">Submit</button>
         </form>
 
-        <p>Click the "Submit" button and the form-data will be sent</p>
     </div>
 
     <script>
