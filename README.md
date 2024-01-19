@@ -18,6 +18,28 @@ The Clinic Management System is a web-based application designed to streamline a
 ## Getting Started
 1. Clone the repository: `git clone https://github.com/your-username/clinic.git`
 2. Install dependencies: `npm install`
-3. Configure the database connection in `config.js`.
+3. **Create Environment Variables:**
+   - Create a file named `.env` in the project root.
+   - Add the following content to the `.env` file and replace the values with your database configuration:
+
+     ```env
+     DB_PORT = 3306
+     DB_HOST = localhost
+     DB_USER = your_database_user
+     DB_PASS = "your_database_password"
+     MYSQL_DB = your_database_name
+     ```
+
+   - Save the `.env` file.
+
 4. Run the application: `npm start`
 5. Access the application at `http://localhost:3000` in your browser.
+
+### Troubleshooting MySQL Authentication Error
+If you encounter an authentication error with the message 'Client does not support authentication protocol requested by server,' follow these steps:
+
+1. Open MySQL Workbench and connect to your database.
+2. Execute the following query, replacing 'root' with your user, 'localhost' with your URL, and 'password' with your password:
+
+   ```sql
+   ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
