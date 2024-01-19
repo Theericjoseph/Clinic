@@ -33,11 +33,15 @@ function formAction(ev) {
                 else res.message;
             }).catch(error => {
                 alert("Error");
-                console.log("Error")
+                console.log(error)
             })
+        } else {
+            alert(response?.status + ': ' + response?.statusText);
+
+            (response?.status == 403) && logout();
         }
     }).catch(error => {
         alert("Error");
-        console.log("Error")
+        console.log(error)
     })
 }

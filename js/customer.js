@@ -39,12 +39,16 @@ function addCustomer(ev) {
 
             }).catch(error => {
                 alert("Error");
-                console.log("Error")
+                console.log(error)
             })
+        } else {
+            alert(response?.status + ': ' + response?.statusText);
+
+            (response?.status == 403) && logout();
         }
     }).catch(error => {
         alert("Error");
-        console.log("Error")
+        console.log(error)
     })
 }
 
@@ -104,6 +108,10 @@ function searchCustomer() {
                     alert("Error");
                     console.log(error)
                 })
+            } else {
+                alert(response?.status + ': ' + response?.statusText);
+
+                (response?.status == 403) && logout();
             }
         }).catch(error => {
             alert("Error");
@@ -137,12 +145,16 @@ function getCustomerDetails(patient_id) {
                 } else alert(res.message);
             }).catch(error => {
                 alert("Error");
-                console.log("Error")
+                console.log(error)
             })
+        } else {
+            alert(response?.status + ': ' + response?.statusText);
+
+            (response?.status == 403) && logout();
         }
     }).catch(error => {
         alert("Error");
-        console.log("Error")
+        console.log(error)
     })
 }
 
@@ -196,8 +208,18 @@ function getDocSched() {
 
 
                 } else alert(res.message);
+            }).catch(error => {
+                alert("Error");
+                console.log(error)
             })
+        } else {
+            alert(response?.status + ': ' + response?.statusText);
+
+            (response?.status == 403) && logout();
         }
+    }).catch(error => {
+        alert("Error");
+        console.log(error)
     })
 }
 

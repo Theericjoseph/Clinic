@@ -89,6 +89,10 @@ function loadDetails() {
                 alert("Error");
                 console.log(error)
             })
+        } else {
+            alert(response?.status + ': ' + response?.statusText);
+
+            (response?.status == 403) && logout();
         }
     }).catch(error => {
         alert("Error");
@@ -125,6 +129,10 @@ function saveDetails() {
                 alert("Error");
                 console.log(error)
             })
+        } else {
+            alert(response?.status + ': ' + response?.statusText);
+
+            (response?.status == 403) && logout();
         }
     }).catch(error => {
         alert("Error");

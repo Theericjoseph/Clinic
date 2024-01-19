@@ -106,12 +106,13 @@ fetchStaff = (staff_id, role) => {
 
         },
         failure: function (response) {
-            alert("Failure");
-            console.log(error)
+            alert(response?.status + ': ' + response?.statusText);
+            (response?.status == 403) && logout();
+
         },
         error: function (response) {
-            alert("Error");
-            console.log(error)
+            alert(response?.status + ': ' + response?.statusText);
+            (response?.status == 403) && logout();
         }
     });
 }
@@ -155,6 +156,10 @@ function updateStaff(form, ev) {
                 alert("Error");
                 console.log(error)
             })
+        } else {
+            alert(response?.status + ': ' + response?.statusText);
+
+            (response?.status == 403) && logout();
         }
     }).catch(error => {
         alert("Error");
@@ -187,6 +192,10 @@ function deleteStaff(staff_id) {
                     alert("Error");
                     console.log(error)
                 })
+            } else {
+                alert(response?.status + ': ' + response?.statusText);
+
+                (response?.status == 403) && logout();
             }
         }).catch(error => {
             alert("Error");

@@ -60,6 +60,10 @@ function fetchVisits(doctor_id) {
                 alert("Error1");
                 console.log(error)
             })
+        } else {
+            alert(response?.status + ': ' + response?.statusText);
+
+            (response?.status == 403) && logout();
         }
     }).catch(error => {
         alert("Error2");
@@ -89,12 +93,16 @@ function deleteVisit(visit_id) {
                     }
                 }).catch(error => {
                     alert("Error");
-                    console.log("Error")
+                    console.log(error)
                 })
+            } else {
+                alert(response?.status + ': ' + response?.statusText);
+
+                (response?.status == 403) && logout();
             }
         }).catch(error => {
             alert("Error");
-            console.log("Error")
+            console.log(error)
         });
     }
 }

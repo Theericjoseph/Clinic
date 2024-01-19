@@ -64,12 +64,16 @@ function fetchAllPatients() {
                 }
             }).catch(error => {
                 alert("Error");
-                console.log("Error")
+                console.log(error)
             })
+        } else {
+            alert(response?.status + ': ' + response?.statusText);
+
+            (response?.status == 403) && logout();
         }
     }).catch(error => {
         alert("Error");
-        console.log("Error")
+        console.log(error)
     })
 }
 
@@ -117,6 +121,10 @@ function searchPatient() {
                     alert("Error");
                     console.log(error)
                 })
+            } else {
+                alert(response?.status + ': ' + response?.statusText);
+
+                (response?.status == 403) && logout();
             }
         }).catch(error => {
             alert("Error");
@@ -152,12 +160,16 @@ function fetchPatient(patient_id) {
                 else alert(res.message);
             }).catch(error => {
                 alert("Error");
-                console.log("Error")
+                console.log(error)
             })
+        } else {
+            alert(response?.status + ': ' + response?.statusText);
+
+            (response?.status == 403) && logout();
         }
     }).catch(error => {
         alert("Error");
-        console.log("Error")
+        console.log(error)
     })
 };
 
@@ -191,12 +203,16 @@ function updatePatient(ev) {
 
             }).catch(error => {
                 alert("Error");
-                console.log("Error")
+                console.log(error)
             })
+        } else {
+            alert(response?.status + ': ' + response?.statusText);
+
+            (response?.status == 403) && logout();
         }
     }).catch(error => {
         alert("Error");
-        console.log("Error")
+        console.log(error)
     })
 }
 
@@ -222,12 +238,16 @@ function deletePatient(patient_id) {
                     else alert(res.message);
                 }).catch(error => {
                     alert("Error");
-                    console.log("Error")
+                    console.log(error)
                 })
+            } else {
+                alert(response?.status + ': ' + response?.statusText);
+
+                (response?.status == 403) && logout();
             }
         }).catch(error => {
             alert("Error");
-            console.log("Error")
+            console.log(error)
         })
     }
 }

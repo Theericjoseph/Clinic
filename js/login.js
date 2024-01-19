@@ -35,12 +35,12 @@ function formAction(form, ev) {
                 }
             }).catch(error => {
                 alert("Error");
-                console.log("Error")
+                console.log(error)
             })
         }
     }).catch(error => {
         alert("Error");
-        console.log("Error")
+        console.log(error)
     })
 }
 
@@ -63,11 +63,11 @@ function getDocId(staff_id) {
                 }
             }).catch(error => {
                 alert("Error");
-                console.log("Error")
+                console.log(error)
             })
         }
     }).catch(error => {
         alert("Error");
-        console.log("Error")
+        console.log(error)
     })
 }
