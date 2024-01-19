@@ -27,7 +27,6 @@ The Clinic Management System is a web-based application designed to streamline a
      DB_HOST = localhost
      DB_USER = your_database_user
      DB_PASS = "your_database_password"
-     MYSQL_DB = your_database_name
      ```
 
    - Save the `.env` file.
