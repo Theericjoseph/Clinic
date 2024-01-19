@@ -15,6 +15,13 @@ The Clinic Management System is a web-based application designed to streamline a
 - **Database:** MySQL
 - **Additional Libraries:** Bootstrap, Font Awesome
 
+## Prerequisites
+Before you start, make sure you have the following installed on your machine:
+
+- **Node.js:** [Download Node.js](https://nodejs.org/)
+- **npm (Node Package Manager):** Included with Node.js installation
+- **MySQL Database:** [Download and Install](https://www.mysql.com/)
+
 ## Getting Started
 1. Clone the repository: `git clone https://github.com/your-username/clinic.git`
 2. Install dependencies: `npm install`
