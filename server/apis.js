@@ -15,6 +15,10 @@ router.get('/login', (req, res) => {
     res.sendFile('/html/login.html', { root: __dirname + './../' }); // Gets login.html from html folder
 });
 
+router.get('/', (req, res) => {
+    res.sendFile('/html/login.html', { root: __dirname + './../' }); // Gets login.html from html folder
+});
+
 router.get('/staff', (req, res) => {
     res.sendFile('/html/addstaff.html', { root: __dirname + './../' }); // Gets staff.html from html folder
 });
