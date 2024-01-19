@@ -44,3 +44,23 @@ If you encounter an authentication error with the message 'Client does not suppo
    ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
    FLUSH PRIVILEGES
    ```
+   
+## Working
+1. **Staff Roles:** Staff members can have one of two roles - doctor or receptionist. When creating staff profiles, assign them the appropriate role based on their responsibilities.
+
+2. **Admin Access:** To manage staff and their roles, log in with admin credentials:
+   - Username: `admin`
+   - Password: `admin123`
+
+3. **Billing and Patient Assignment:**
+   - Receptionists, with their login credentials, can create new bills for new patients.
+   - After creating a bill, receptionists can assign the patient to one of the available doctors for consultation.
+
+4. **Doctor Consultation:**
+   - Doctors, upon logging in, can consult with assigned patients.
+   - During the consultation, doctors can add diagnoses and prescribe medicine, updating the database with relevant patient information.
+
+By following these steps, the system facilitates the smooth flow of patient management, billing, and doctor-patient interactions. Receptionists handle billing and patient assignments, while doctors can easily access and update patient information during consultations.
+
+
+
