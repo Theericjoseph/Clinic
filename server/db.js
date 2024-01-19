@@ -109,35 +109,35 @@ async function createTables() {
 
 };
 
-createTables();
-
-
+// Function to create Admin when first creating the db
 async function createAdmin() {
 
-  //check if already exists
-  const myPromise = await new Promise((resolve, reject) => {
-    db.query('SELECT  * FROM clinic.staff WHERE staff_role =0', 
-    (error, results, fields) => {
-      error ? reject(error) : resolve(results);
+    //check if already exists
+    const myPromise = await new Promise((resolve, reject) => {
+        db.query('SELECT  * FROM clinic.staff WHERE staff_role =0',
+            (error, results, fields) => {
+                error ? reject(error) : resolve(results);
+            });
     });
-});
 
 
-if(!myPromise[0]) {
-  //add admin
+    if (!myPromise[0]) {
+        //add admin
 
-  const myPromise = await new Promise((resolve, reject) => {
-    db.query('INSERT INTO `clinic`.`staff` (`staff_id`, `staff_name`, `staff_role`, `staff_username`, `staff_password`) VALUES (1, ?, 0, ?, ?);',
-    ['admin', 'admin', 'admin123'], 
-    (error, results, fields) => {
-      error ? reject(error) : resolve(results);
-    });
-});
+        const myPromise = await new Promise((resolve, reject) => {
+            db.query('INSERT INTO `clinic`.`staff` (`staff_id`, `staff_name`, `staff_role`, `staff_username`, `staff_password`) VALUES (1, ?, 0, ?, ?);',
+                ['admin', 'admin', 'admin123'],
+                (error, results, fields) => {
+                    error ? reject(error) : resolve(results);
+                });
+        });
+    }
 }
-}
 
-setTimeout(function () {
-  createAdmin();
+createTables();
+
+setTimeout(function () { // Time-out function to wait for the tables to be created
+    createAdmin();
 }, 100)
 
 module.exports = db;
