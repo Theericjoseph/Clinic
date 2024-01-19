@@ -114,6 +114,9 @@ function openPatientDetails(patient_id, staff_role) {
         sessionStorage.setItem("patient_id", patient_id); // Adds patient id to session
         window.location.href = "/report";
     }
+    else {
+        alert("Login as doctor to create report.");
+    }
 }
 
 // Search Patient

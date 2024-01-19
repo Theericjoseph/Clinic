@@ -57,11 +57,8 @@ function fetchAllPatients() {
                         patientTable.innerHTML += string;
 
                     });
+                } else alert(res.message);
 
-                }
-                else {
-                    alert(res.message);
-                }
             }).catch(error => {
                 alert("Error");
                 console.log(error)

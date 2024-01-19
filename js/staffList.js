@@ -1,13 +1,4 @@
-//jquery example
-// $('#h1').html("Hello world");
-
-//Addeventlistener eg
-// document.addEventListener('DOMContentLoaded', () => {
-//     fetchAllStaffData();
-//     console.log('DOM fully loaded and parsed');
-// });
-
-
+// Fetch call to display staff list table
 function fetchAllStaffData() {
     const staffDataTable = document.getElementById("stafftable");
     staffDataTable.innerHTML = '';

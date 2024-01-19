@@ -104,8 +104,6 @@ router.post('/staff', async (req, res) => {
 
 
     let staff_id = result?.insertId;
-    console.log("result", result);
-    console.log("insertId", result?.insertId); //prints auto-increment ID of the table
 
     // check if staff_role is Doctor and add to doctors table if staff_role=2
     if (staff_role == 2) {
@@ -174,7 +172,7 @@ router.get('/allstaff', async (req, res) => {
             })
     })
 
-    if (!result?.[0]) return res.json({ "success": false, "message": "Error while getting staff data. " })
+    if (!result?.[0]) return res.json({ "success": false, "message": "No staff data registered, Add staff to DB " })
 
     return res.json({ "success": true, "data": result });
 })
@@ -334,7 +332,7 @@ router.post('/allpatients', async (req, res) => {
             })
     })
 
-    if (!result?.[0]) return res.json({ "success": true, "message": "Error while getting patient details." });
+    if (!result?.[0]) return res.json({ "success": false, "message": "No patients found. Add patient under New Bill" });
     return res.json({ "success": true, data: result });
 
 })
