@@ -37,8 +37,10 @@ The Clinic Management System is a web-based application designed to streamline a
 ### Troubleshooting MySQL Authentication Error
 If you encounter an authentication error with the message 'Client does not support authentication protocol requested by server,' follow these steps:
 
-1. Open MySQL Workbench and connect to your database.
+1. Open MySQL Workbench.
 2. Execute the following query, replacing 'root' with your user, 'localhost' with your URL, and 'password' with your password:
 
    ```sql
    ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+   FLUSH PRIVILEGES
+   ```
