@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Staff Details</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./../staff.css">
+</head>
+
+<body>
+
+    <div class="login-container">
+        <h1>Enter Staff Details</h1>
+        <p>Enter data into all the fields.</p>
+
+        <form id="staffForm" action="/staff" method="post">
+            <div>
+                <label for="staff_name">Staff Name</label>
+                <input type="text" name="staff_name" id="staff_name" required>
+            </div>
+
+            <div>
+                <label for="staff_role">Choose a role:</label>
+                <select name="staff_role" id="staff_role" onchange="toggleDoctorFields()">
+                    <option value="1">Receptionist</option>
+                    <option value="2">Doctor</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="staff_username">Staff Username</label>
+                <input type="text" name="staff_username" id="user" required>
+            </div>
+
+            <div>
+                <label for="staff_password">Staff Password</label>
+                <input type="password" name="staff_password" id="pass" required>
+            </div>
+
+            <div>
+                <label for="staff_mobile">Staff Mobile</label>
+                <input type="text" name="staff_mobile" id="mobile" required>
+            </div>
+
+            <div>
+                <label for="staff_email">Staff Email</label>
+                <input type="text" name="staff_email" id="email" required>
+            </div>
+
+            <div class="doctor-fields">
+                <label for="doctor_imano">Doctor IMANO</label>
+                <input type="text" name="doctor_imano" id="doctor_imano">
+            </div>
+
+            <div class="doctor-fields">
+                <label>Doctor Schedule</label><br>
+
+
+                <input type="checkbox" name="doctor_schedule" value="1">
+                <label for="doctor_schedule"> Sunday</label><br>
+                <input type="checkbox" name="doctor_schedule" value="2">
+                <label for="doctor_schedule"> Monday</label><br>
+                <input type="checkbox" name="doctor_schedule" value="3">
+                <label for="doctor_schedule"> Tuesday</label><br>
+                <input type="checkbox" name="doctor_schedule" value="4">
+                <label for="doctor_schedule"> Wednesday</label><br>
+                <input type="checkbox" name="doctor_schedule" value="5">
+                <label for="doctor_schedule"> Thursday</label><br>
+                <input type="checkbox" name="doctor_schedule" value="6">
+                <label for="doctor_schedule"> Friday</label><br>
+                <input type="checkbox" name="doctor_schedule" value="7">
+                <label for="doctor_schedule"> Saturday</label><br>
+
+                <br><br>
+            </div>
+
+            <input type="submit" value="Submit">
+        </form>
+
+        <p>Click the "Submit" button and the form-data will be sent</p>
+    </div>
+
+    <script>
+        function toggleDoctorFields() {
+            const roleSelect = document.getElementById('staff_role');
+            const doctorFields = document.querySelectorAll('.doctor-fields');
+
+            doctorFields.forEach(field => {
+                field.style.display = roleSelect.value === '2' ? 'block' : 'none';
+            });
+        }
+    </script>
+
+</body>
+
+</html>

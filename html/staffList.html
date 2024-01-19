@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff List</title>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous">
+        </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://kit.fontawesome.com/9798c6cc79.js" crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" href="./../staffList.css">
+    <link rel="stylesheet" href="./../common.css">
+
+    <script type="text/javascript" src="./../staff.js"></script>
+    <script type="text/javascript" src="./../common.js"></script>
+
+</head>
+
+<body onload="fetchAllStaffData();">
+    <!-- Nav Bar -->
+    <ul id="navBar">
+        <li><a href="/patient-list">Patient</a></li>
+        <li><a href="/visits">Patient Vist</a></li>
+        <li><a href="/customer">New Bill</a></li>
+        <li style="float:right" onclick="logout()"><a>Logout</a></li>
+    </ul>
+
+    <!-- Heading -->
+    <h1 id="h1">Staff List</h1>
+
+    <!-- Add staff button -->
+    <a class="btn" href="/staff">Add Staff+</a>
+
+    <!-- Staff Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Username</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Staff Created On</th>
+                <th>Edit / Delete </th>
+            </tr>
+        </thead>
+        <tbody id="stafftable"></tbody>
+    </table>
+
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+
+            <!-- EDIT FORM -->
+            <form id="upForm" onsubmit="updateStaff(this, event)">
+                <div style="display: flex; justify-content:center; align-items:center; flex-direction: column;"
+                    class="login-container">
+                    <div>
+                        <label> Staff Name </label>
+                        <input type="hidden" name="staff_id" id="staff_id">
+                        <input type="text" name="staff_name" id="staff_name">
+                        <br><br>
+                    </div>
+                    <div>
+                        <label for="staff_role">Choose a role:</label>
+                        <select name="staff_role" id="staff_role" onchange="toggleDoctorFields()">
+                            <option value="2">Doctor</option>
+                            <option value="1">Receptionist</option>
+                        </select>
+                        <br><br>
+                    </div>
+                    <div>
+                        <label>Staff Username</label>
+                        <input type="text" name="staff_username" id="staff_username">
+                        <br><br>
+                    </div>
+                    <div>
+                        <label>Staff Password</label>
+                        <input type="password" name="staff_password" id="staff_password">
+                        <br><br>
+                    </div>
+                    <div>
+                        <label>Staff Mobile</label>
+                        <input type="text" name="staff_mobile" id="staff_mobile">
+                        <br><br>
+                    </div>
+                    <div>
+                        <label>Staff Email</label>
+                        <input type="text" name="staff_email" id="staff_email">
+                        <br><br>
+                    </div>
+                    <div class="doctor-fields">
+                        <label>Doctor IMANO</label>
+                        <input type="text" name="doctor_imano" id="doctor_imano">
+                        <br><br>
+                    </div>
+                    <div class="doctor-fields">
+                        <label>Doctor Schedule</label><br>
+
+
+                        <input type="checkbox" name="doctor_schedule" value="1">
+                        <label for="doctor_schedule"> Sunday</label><br>
+                        <input type="checkbox" name="doctor_schedule" value="2">
+                        <label for="doctor_schedule"> Monday</label><br>
+                        <input type="checkbox" name="doctor_schedule" value="3">
+                        <label for="doctor_schedule"> Tuesday</label><br>
+                        <input type="checkbox" name="doctor_schedule" value="4">
+                        <label for="doctor_schedule"> Wednesday</label><br>
+                        <input type="checkbox" name="doctor_schedule" value="5">
+                        <label for="doctor_schedule"> Thursday</label><br>
+                        <input type="checkbox" name="doctor_schedule" value="6">
+                        <label for="doctor_schedule"> Friday</label><br>
+                        <input type="checkbox" name="doctor_schedule" value="7">
+                        <label for="doctor_schedule"> Saturday</label><br>
+
+                        <br><br>
+                    </div>
+
+
+
+
+                    <input type="submit" value="Submit">
+
+                </div>
+            </form>
+
+            <p>Click the "Submit" button and the form-data will be sent</p>
+
+
+        </div>
+
+    </div>
+
+    <script>
+
+        //navbar scripts
+
+        window.addEventListener("load", () => {
+            // alert("hello");
+            let sList = document.getElementById("sList");
+
+            let sRole = sessionStorage.getItem("staff_role");
+
+            if (sRole == 0) {
+                sList.classList.add("active");
+            }
+            else {
+                alert("Forbiddden");
+                window.location.href = '/visits';
+            }
+        });
+
+
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+            resetInputs(); // Resets the data in Doctor Fields
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+                resetInputs();
+            }
+        }
+    </script>
+</body>
+
+</html>

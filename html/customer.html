@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Patient Visit</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://kit.fontawesome.com/9798c6cc79.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="./../common.css">
+
+    <script type="text/javascript" src="./../customer.js"></script>
+    <script type="text/javascript" src="./../common.js"></script>
+
+
+    <style>
+        .customer-details-heading {
+            background-color: #007bff;
+            /* Blue background color */
+            color: white;
+            /* White text color */
+            padding: 10px;
+            /* Padding for better visibility */
+        }
+
+        .tags {
+            min-width: 100px;
+        }
+
+        .final-bill-heading {
+            background-color: #28A745;
+            /* Blue background color */
+            color: white;
+            /* White text color */
+            padding: 10px;
+            /* Padding for better visibility */
+        }
+    </style>
+
+
+</head>
+
+<body onload="openSearch()">
+
+    <!-- Nav Bar -->
+    <ul id="navBar">
+        <li><a href="/patient-list">Patient</a></li>
+        <li><a href="/visits">Patient Vist</a></li>
+        <li><a class="active" href="/customer">New Bill</a></li>
+        <li style="float:right" onclick="logout()"><a>Logout</a></li>
+    </ul>
+
+    <!-- Modal (Search Customer) -->
+    <div class="modal fade" tabindex="-1" id="searchCustomer">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content ">
+
+                <div class="modal-header">
+                    <!-- Modal Heading -->
+                    <h5 class="modal-title">Search Customer</h5>
+                    <!-- Top right close button -->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- Form Body -->
+                <div class="modal-body">
+
+                    <!-- Search Bar -->
+
+                    <div class="container col-md-8">
+                        <input class="form-control" id="customer_searchbar" type="text" onkeyup="searchCustomer()"
+                            placeholder="Search Patient (Name, Mobile, Patient-UniqueID)">
+                    </div>
+
+                    <!-- Visits Table -->
+                    <table class="table table-bordered mt-3">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Patient Unique ID</th>
+                                <th scope="col">Age</th>
+                                <th scope="col">Gender</th>
+                                <th scope="col">Mobile</th>
+                                <th scope="col">Email</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="customerTable"></tbody>
+                    </table>
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <!-- Close & Save  -->
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="closeSearch()">New Customer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Title (New Bill) -->
+    <h2 class="text-center mt-3">New Bill</h2><br>
+
+    <div class="container col-md-12 mt-3">
+
+        <div class="row justify-content-md-center">
+
+            <!-- Customer Details -->
+            <div class="col-md-5 border rounded pl-0 pr-0 ">
+
+                <!-- Heading -->
+                <h5 class="text-center customer-details-heading col-md-12">Customer Details</h5>
+
+                <!-- Customer Details Form -->
+                <form id="customer_form" class="ml-1 mr-1 p-3">
+
+                    <div class="form-group">
+                        <label id="patientName">Name</label>
+
+                        <!-- Default New Customer -->
+                        <input type="hidden" class="form-control" id="if_new" name="if_new" value="1">
+                        <!-- Patient Unique ID (Hidden) -->
+                        <input type="hidden" class="form-control" id="patient_uniqueid" name="patient_uniqueid"
+                            value="">
+
+                        <input type="text" class="form-control" id="patient_name" name="patient_name">
+                    </div>
+
+                    <div class="form-group">
+                        <label id="patientAge">Age</label>
+                        <input type="text" class="form-control" id="patient_age" name="patient_age">
+                    </div>
+
+                    <div class="form-group">
+                        <label id="patientGender">Gender</label>
+                        <select class="form-control" id="patient_gender" name="patient_gender">
+                            <option value="1">Male</option>
+                            <option value="2">Female</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="patientAddress">Address</label>
+                        <textarea class="form-control" id="patient_address" rows="3" name="patient_address"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="patientMobile">Mobile</label>
+                        <input type="text" class="form-control" id="patient_mobile" name="patient_mobile">
+                    </div>
+
+                    <div class="form-group">
+                        <label id="patientEmail">Email</label>
+                        <input type="text" class="form-control" id="patient_email" name="patient_email">
+                    </div>
+
+                    <div class="form-group">
+                        <label id="staffID">Staff ID</label>
+                        <input type="text" class="form-control" id="staff_id" name="staff_id">
+                    </div>
+
+                    <div class="form-group">
+                        <label id="patientGender">Doctor</label>
+                        <select class="form-control" id="visit_doctor" name="visit_doctor">
+
+
+                        </select>
+                    </div>
+
+                    <input type="hidden" id="visit_prescription" name="visit_prescription" value="">
+
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary mb-3" onclick="addCustomer(event)">Submit</button>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <!-- Final Bill -->
+            <div class="col-md-5 offset-md-1 align-self-center border rounded pl-0 pr-0 d-inline">
+
+                <!-- Heading -->
+                <h5 class="text-center final-bill-heading col-md-12">Final Bill</h5>
+
+                <!-- Bill Form -->
+                <form id="bill_form" class="ml-1 mr-1">
+                    <div class="container col-md-12">
+                        <div class="row justify-content-md-center border-bottom border-dark ">
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label id="patientID" class="tags">Unique ID</label>
+                                    <p id="customer_uniqueid" name="customer_uniqueid" class="d-inline text-justify">
+                                        Empty
+                                    </p>
+                                </div>
+
+                                <div class="form-group">
+                                    <label id="patientName" class="tags">Name</label>
+                                    <p id="customer_name" name="customer_name" class="d-inline text-justify">Empty
+                                    </p>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label id="patientAge" class="tags">Age</label>
+                                    <p id="customer_age" name="customer_age" class="d-inline text-justify">Empty</p>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-1">
+                                <div class="form-group">
+                                    <label id="patientGender" class="tags">Gender :</label>
+                                    <p id="customer_gender" name="customer_gender" class="d-inline text-justify">Empty
+                                    </p>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label id="patientMobile" class="tags">Mobile :</label>
+                                    <p id="customer_mobile" name="customer_mobile" class="d-inline text-justify">Empty
+                                    </p>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label id="patientEmail" class="tags">Email :</label>
+                                    <p id="customer_email" name="customer_email" class="d-inline text-justify">
+                                        Empty</p>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row mb-3 mt-3">
+                            <div class="container col-md-12">
+                                <h4 id="total" class="tags font-weight-bold d-inline">Total Amt</h4>
+                                <h4 id="total_amt" name="total_amt"
+                                    class="d-inline text-justify font-weight-bold float-right mr-5">$0
+                                </h4>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
